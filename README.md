@@ -1,16 +1,27 @@
-Yii 2 Basic Project Template
+Pathology Lab System
 ============================
 
-Yii 2 Basic Project Template is a skeleton [Yii 2](http://www.yiiframework.com/) application best for
-rapidly creating small projects.
 
-The template contains the basic features including user login/logout and a contact page.
-It includes all commonly used configurations that would allow you to focus on adding new
-features to your application.
+A pathology lab reporting system, which can be used to publish medical test result reports to patients.
 
-[![Latest Stable Version](https://poser.pugx.org/yiisoft/yii2-app-basic/v/stable.png)](https://packagist.org/packages/yiisoft/yii2-app-basic)
-[![Total Downloads](https://poser.pugx.org/yiisoft/yii2-app-basic/downloads.png)](https://packagist.org/packages/yiisoft/yii2-app-basic)
-[![Build Status](https://travis-ci.org/yiisoft/yii2-app-basic.svg?branch=master)](https://travis-ci.org/yiisoft/yii2-app-basic)
+Functional Specifications
+
+Create a pathology lab reporting web application where medical test result reports can be published to the
+patients:
+
+Operator users should be able to log in to the system to perform following privileged tasks. Patients
+cannot access these pages.
+Reports CRUD (Multiple tests and results in each report)
+Patients CRUD (including pass code)
+Lab sends a text message to the patient with a pass code to log in (out of scope).
+Patient user could log in using his name (auto complete field) and pass code sent to him. And then can
+do the following
+
+Display list of his reports
+Display a report details as a page
+Export a report as PDF
+Mail a report as PDF
+
 
 DIRECTORY STRUCTURE
 -------------------
@@ -32,41 +43,66 @@ DIRECTORY STRUCTURE
 REQUIREMENTS
 ------------
 
-The minimum requirement by this project template that your Web server supports PHP 5.4.0.
+•	PHP 5.5.9
+•	Apache/2.4.7
+o	url rewriting
+•	Composer for installing dependencies
+•	PhpStorm IDE (First time used heard it’s good).
+•	VMware to host deployment server in Ubuntu server 14.04.
+•	Putty to interact with server.
+•	Adminer web interface to MySQL server.
+•	Visio for creating diagram
+•	MySQL  5.5.43
+•	MySQL workbench
+•	Yii 2.0.4 (I had experience in Yii 1 point something while back took risk with Yii 2 at least could learn something new)
+o	Database migration for version dB not used as accordingly as per time shortage.
+o	Gii to scaffold CRUD code.
+o	Yii 2-mpdf for pdf generation
+o	Yii 2 swiftmailer for email.
+o	Yii 2 html templating
+o	Yii 2 widgets for grid page and detail page.
+o	Http cache header to Cache static content. Yii even caches pages through files.
+•	Bootstrap for boiler plate front end code.
+•	JQuery although not used much
+
 
 
 INSTALLATION
 ------------
 
-### Install from an Archive File
+Installation instructions:
 
-Extract the archive file downloaded from [yiiframework.com](http://www.yiiframework.com/download/) to
-a directory named `basic` that is directly under the Web root.
+1) vendor library is not provided so have to install through composer
+	composer install
+	or  composer update
 
-You can then access the application through the following URL:
+2) Create symbolic link to to a folder in apache htdocs
+	ln -s 'fullpath to source code web folder' 'fullpath to destination folder somewhere in htdocs/html/'  (NOTE apache 2.2 and above host files in html folder)
 
-~~~
-http://localhost/basic/web/
-~~~
+3) Update file config/db with respective db settings
+
+4) Grate write access to runtime folder in root
+	chmod 777 -R runtime/
+
+5) Run migration by command ./yii migrate
+	If it doesnt work grate it permission to execute i.e chmod 755 yii
+	If migration failed you can always use the sql dump to provided to get the database.
+
+6) Done just browse to the path
+
+Assumption and Missing Requirement:
+
+1) I did integrated yii2 swiftmailer briefly tests it i had no errors but didnt got any email in inbox post probability configuration issue.
+
+2) Patient user could log in using his name (auto complete field). This weird requirement as why should patient be able to see other name in auto complete. Proper way would have been that 
+email with url of patient login page should have been sent.
 
 
-### Install via Composer
+FeedBack:
 
-If you do not have [Composer](http://getcomposer.org/), you may install it by following the instructions
-at [getcomposer.org](http://getcomposer.org/doc/00-intro.md#installation-nix).
+1) Assignment duration is less and deliverables are more, keep in mind the quality required i think ample time needs to be given so that candidate can have time to 
+spend time in planning and designing better solution.
 
-You can then install this project template using the following command:
-
-~~~
-php composer.phar global require "fxp/composer-asset-plugin:~1.0.0"
-php composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-basic basic
-~~~
-
-Now you should be able to access the application through the following URL, assuming `basic` is the directory
-directly under the Web root.
-
-~~~
-http://localhost/basic/web/
 ~~~
 
 
